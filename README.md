@@ -9,6 +9,7 @@ Classic Asteroids game written in C# using Raylib (`Raylib-cs`).
 * **Scene Management:** Includes Title, Gameplay, and Game Over states.
 * **Infinite Gameplay:** A dynamic game loop with endless waves of asteroids.
 * **Polished Aesthetics:** Retro vector-style graphics and sound effects.
+* A simple **Particle System**.
 
 ## Controls
 * W - Thrust forward
