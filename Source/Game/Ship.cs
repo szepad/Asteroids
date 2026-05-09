@@ -18,6 +18,9 @@ public class Ship : Entity
     private bool _isThrusting;
     private float _thrustTimer;
     
+    private const float ThrustSoundTime = 0.25f;
+    private float _thrustSoundTimer;
+    
     public Ship(World world, Vector2 pos) 
         : base(world, pos)
     {
@@ -51,13 +54,22 @@ public class Ship : Entity
         {
             Velocity += Dir * ThrustForce * Time.DeltaTime;
             _isThrusting = true;
+            
             _thrustTimer += Time.DeltaTime;
+            
+            _thrustSoundTimer -= Time.DeltaTime;
+            if (_thrustSoundTimer <= 0f)
+            {
+                _thrustSoundTimer = ThrustSoundTime;
+                SoundManager.PlaySound(SoundName.Thrust);
+            }
         }
         else
         {
             Velocity *= MathF.Pow(DragFactor, Time.DeltaTime);
             _isThrusting = false;
             _thrustTimer = 0f;
+            _thrustSoundTimer = 0f;
         }
     }
     

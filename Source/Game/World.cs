@@ -57,7 +57,11 @@ public class World
 
         _entities.RemoveAll(e => e.IsDestroyed);
         if (!_entities.Any(e => e is Asteroid))
+        {
+            SoundManager.PlaySound(SoundName.ExtraShip);
+            _livesLeft++;
             StartWave();
+        }
     }
 
     private void HandleRespawning()
@@ -76,7 +80,7 @@ public class World
             else
             {
                 // Game Over
-                Game.Instance.LoadScene(new TitleScene());
+                Game.Instance.LoadScene(new GameOverScene(_score));
             }
         }
     }

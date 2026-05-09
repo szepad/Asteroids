@@ -19,9 +19,13 @@ public static class Assets
         TryLoadTex("star", "res/graphics/star.png");
         
         TryLoadSound(SoundName.Shoot, "res/sounds/shoot.wav");
+        TryLoadSound(SoundName.Thrust, "res/sounds/thrust.wav");
         TryLoadSound(SoundName.ExplosionBig, "res/sounds/explosion_big.wav");
         TryLoadSound(SoundName.ExplosionMedium, "res/sounds/explosion_medium.wav");
         TryLoadSound(SoundName.ExplosionSmall, "res/sounds/explosion_small.wav");
+        TryLoadSound(SoundName.Hover, "res/sounds/hover.wav");
+        TryLoadSound(SoundName.Select, "res/sounds/select.wav");
+        TryLoadSound(SoundName.ExtraShip, "res/sounds/extra_ship.wav");
     }
 
     private static void TryLoadTex(string name, string path)

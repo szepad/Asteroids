@@ -19,11 +19,6 @@ public class GameScene : Scene
 
     public override void Draw()
     {
-        Raylib.BeginDrawing();
-        Raylib.ClearBackground(Color.Black);
-
         _world.Draw();
-        
-        Raylib.EndDrawing();
     }
 }

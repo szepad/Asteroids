@@ -73,6 +73,9 @@ public class Game
 
     private void Draw()
     {
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.Black);
         _currentScene?.Draw();
+        Raylib.EndDrawing();
     }
 }

@@ -14,11 +14,15 @@ public record Button(string Label, Action<Button> OnClick)
 
     public void Update()
     {
+        bool prevHovered = IsHovered;
         IsHovered = Raylib.CheckCollisionPointRec(Raylib.GetMousePosition(), Rect);
+        if (!prevHovered && IsHovered)
+            SoundManager.PlaySound(SoundName.Hover);
         
         if (Raylib.IsMouseButtonReleased(MouseButton.Left)
             && IsHovered)
         {
+            SoundManager.PlaySound(SoundName.Select);
             OnClick.Invoke(this);
         }
     }
