@@ -1,7 +1,7 @@
 ﻿global using Raylib_cs;
 global using System.Numerics;
 
-namespace AsteroidsTutorial;
+namespace Asteroids;
 
 public static class Program
 {

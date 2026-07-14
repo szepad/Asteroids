@@ -1,4 +1,4 @@
-namespace AsteroidsTutorial;
+namespace Asteroids;
 
 public record Button(string Label, Action<Button> OnClick)
 {

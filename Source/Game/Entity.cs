@@ -1,4 +1,4 @@
-namespace AsteroidsTutorial;
+namespace Asteroids;
 
 public abstract class Entity(World world, Vector2 position)
 {

@@ -1,4 +1,4 @@
-namespace AsteroidsTutorial;
+namespace Asteroids;
 
 public class Game
 {
@@ -66,8 +66,13 @@ public class Game
 
     private void Update()
     {
+        if (Raylib.IsKeyPressed(KeyboardKey.One)) Time.TimeScale = 1f;
+        if (Raylib.IsKeyPressed(KeyboardKey.Two)) Time.TimeScale = 1f / 5f;
+        if (Raylib.IsKeyPressed(KeyboardKey.Three)) Time.TimeScale = 0f;
+
         Time.Progress();
         SoundManager.Update();
+        
         _currentScene?.Update();
     }
 

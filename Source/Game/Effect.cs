@@ -1,4 +1,4 @@
-namespace AsteroidsTutorial;
+namespace Asteroids;
 
 public record EffectData(
     Texture2D Texture, float TextureScale, 

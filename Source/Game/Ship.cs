@@ -1,4 +1,4 @@
-namespace AsteroidsTutorial;
+namespace Asteroids;
 
 public class Ship : Entity
 {
