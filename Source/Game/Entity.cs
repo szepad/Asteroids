@@ -2,6 +2,8 @@ namespace Asteroids;
 
 public abstract class Entity(World world, Vector2 position)
 {
+    public event Action<Entity>? OnDestroy; 
+    
     public World World { get; } = world;
     
     public Vector2 Position = position;
@@ -18,7 +20,9 @@ public abstract class Entity(World world, Vector2 position)
     
     public void Destroy()
     {
+        if (IsDestroyed) return;
         IsDestroyed = true;
+        OnDestroy?.Invoke(this);
     }
     
     public virtual void Update()
@@ -66,7 +70,7 @@ public abstract class Entity(World world, Vector2 position)
             new Rectangle(Position, Sprite.Dimensions * Scale),
             Sprite.Dimensions * Scale / 2f, Rotation / MathF.PI * 180f, Tint);
         
-        // Raylib.DrawCircleV(Position, HitboxRadius, Color.Red.Alpha(0.5f));
+        // Raylib.DrawCircleV(Position, HitboxRadius, Color.Green.Alpha(0.5f));
     }
 
     protected virtual void OnEntityOverlap(Entity other)

@@ -26,11 +26,18 @@ public class Bullet : Entity
 
     protected override void OnEntityOverlap(Entity other)
     {
-        if (other is Asteroid asteroid)
+        switch (other)
         {
-            asteroid.Hit();
-            Destroy();
-            World.SpawnEffect(EffectData.Bullet, Position);
+            case Asteroid asteroid:
+                asteroid.Hit();
+                Destroy();
+                World.SpawnEffect(EffectData.Bullet, Position);
+                break;
+            case Saucer saucer:
+                saucer.Hit();
+                Destroy();
+                World.SpawnEffect(EffectData.Bullet, Position);
+                break;
         }
     }
 }

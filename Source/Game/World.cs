@@ -13,9 +13,16 @@ public class World
     private const float RespawnTime = 2f;
     private float _respawnTimer;
     
+    private const float SaucerMinSpawnTime = 20f;
+    private const float SaucerMaxSpawnTime = 30f;
+    private float _saucerTimer = Helper.RandomFloat(20f, 30f);
+
+    private const float SaucerSoundDuration = 0.2f;
+    private float _saucerSoundTimer;
+    
     public World()
     {
-        _entities.Add(new Ship(this, Game.Center)); 
+        _entities.Add(new Ship(this, Game.Center));
         StartWave();
     }
 
@@ -56,6 +63,14 @@ public class World
         }
 
         _entities.RemoveAll(e => e.IsDestroyed);
+        
+        HandleWaveStarting();
+        HandleSaucerSpawning();
+        HandleSaucerSound();
+    }
+
+    private void HandleWaveStarting()
+    {
         if (!_entities.Any(e => e is Asteroid))
         {
             SoundManager.PlaySound(SoundName.ExtraShip);
@@ -64,6 +79,36 @@ public class World
         }
     }
 
+    private void HandleSaucerSpawning()
+    {
+        _saucerTimer -= Time.DeltaTime;
+        if (_saucerTimer <= 0f)
+        {
+            _saucerTimer = Helper.RandomFloat(SaucerMaxSpawnTime, SaucerMaxSpawnTime);
+
+            Ship? ship = (Ship?)_entities.Find(e => e is Ship);
+            if (ship is not null)
+            {
+                Saucer saucer = SpawnEntity(new Saucer(this, ship, new Vector2(0f, 100f)));
+                if (Helper.RandomInt(0, 2) == 0) saucer.Position.X = -saucer.HitboxRadius * 2f;
+                else saucer.Position.X = Game.Width + saucer.HitboxRadius * 2f;
+            }
+        }
+    }
+
+    private void HandleSaucerSound()
+    {
+        if (!_entities.Any(e => e is Saucer))
+            return;
+
+        _saucerSoundTimer -= Time.DeltaTime;
+        if (_saucerSoundTimer <= 0f)
+        {
+            _saucerSoundTimer = SaucerSoundDuration;
+            SoundManager.PlaySound(SoundName.Saucer);
+        }
+    }
+    
     private void HandleRespawning()
     {
         if (_respawnTimer <= 0f)

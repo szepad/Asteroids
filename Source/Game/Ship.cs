@@ -28,6 +28,7 @@ public class Ship : Entity
         Scale = 0.075f;
         Tint = Color.Yellow;
         HitboxRadius = 16f;
+        OnDestroy += OnDestroyImpl;
     }
 
     public void SetInvincible()
@@ -91,13 +92,31 @@ public class Ship : Entity
 
     protected override void OnEntityOverlap(Entity other)
     {
-        if (other is Asteroid asteroid && _invincibleTimer <= 0f)
+        if (_invincibleTimer > 0f)
+            return;
+
+        switch (other)
         {
-            asteroid.Hit();
-            Destroy();
-            World.LoseLife();
-            World.SpawnEffect(EffectData.ShipExplosion, Position);
+            case Asteroid asteroid:
+                asteroid.Hit();
+                Destroy();
+                break;
+            case Saucer saucer:
+                saucer.Hit();
+                Destroy();
+                break;
+            case SaucerBomb bomb:
+                bomb.Destroy();
+                Destroy();
+                break;
         }
+    }
+
+    private void OnDestroyImpl(Entity _)
+    {
+        World.LoseLife();
+        World.SpawnEffect(EffectData.ShipExplosion, Position);
+        SoundManager.PlaySound(SoundName.ExplosionBig);
     }
 
     public override void Draw()
