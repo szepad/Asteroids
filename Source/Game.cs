@@ -54,7 +54,7 @@ public class Game
     private void Load()
     {
         Assets.Load();
-        LoadScene(new GameScene());
+        LoadScene(new TitleScene());
     }
 
     private void Unload()
